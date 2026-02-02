@@ -1,0 +1,49 @@
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	s = status -s
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+	p = pull --recurse-submodules
+	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+	amend = commit --amend --reuse-message=HEAD
+	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+	prune-merged = "!git branch --merged | grep -v '\\*' | egrep -v 'master|main|development' | xargs -n 1 git branch -d"
+	aliases = config --get-regexp alias
+
+[branch]
+	sort = -committerdate
+
+[core]
+	excludesfile = ~/.gitignore
+	whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+	trustctime = false
+	precomposeunicode = false
+	untrackedCache = true
+
+[color]
+	ui = auto
+
+[commit]
+	gpgsign = true
+
+[diff]
+	renames = copies
+
+[fetch]
+	prune = true
+
+[init]
+	defaultBranch = main
+
+[merge]
+	log = true
+
+[pull]
+	rebase = true
+
+[push]
+	default = current
+	followTags = true
+	autoSetupRemote = true

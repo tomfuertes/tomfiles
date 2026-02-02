@@ -1,0 +1,34 @@
+{
+  "outputStyle": "Explanatory",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "grep -Fq '*local*' .gitignore 2>/dev/null || (echo '' >> .gitignore && echo '*local*' >> .gitignore && echo '✓ Added *local* to .gitignore')"
+          }
+        ]
+      }
+    ]
+  },
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "eth the world",
+      "follow your... heart",
+      "generating meaning",
+      "i'm a guy who knows when things are things - and that's a thing",
+      "i'm not mad at you i was grumpy in your direction",
+      "it's just a flesh wound",
+      "legend's baby!",
+      "look left",
+      "there is no tambourine",
+      "you can just do things",
+      "you can just ship things",
+      "you got a good one",
+      "you too"
+    ]
+  }
+}
