@@ -19,7 +19,7 @@ bootstrap.sh   # Sync dotfiles to ~ (shows diff, prompts)
 brew.sh        # Homebrew packages for new Mac
 ```
 
-Also: `.curlrc`, `.wgetrc`, `.editorconfig`, `.hushlogin`
+Also: `.curlrc`, `.wgetrc`, `.editorconfig`, `.hushlogin`, `.claude/`
 
 ## Customize
 
