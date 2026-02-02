@@ -21,6 +21,12 @@ brew.sh        # Homebrew packages for new Mac
 
 Also: `.curlrc`, `.wgetrc`, `.editorconfig`, `.hushlogin`
 
+## Customize
+
+These files contain personal config—fork and replace with your own:
+- `.extra` — git credentials, API keys, local aliases
+- `.claude/settings.json` — Claude Code permissions and status verbs
+
 ## Setup
 
 ```bash
