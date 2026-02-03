@@ -24,3 +24,10 @@ Personal dotfiles. Shell config synced to `$HOME` via rsync.
 
 - Uses [Pure prompt](https://github.com/sindresorhus/pure): `git clone https://github.com/sindresorhus/pure.git ~/.zsh/pure`
 - Fork and customize `.extra` for your own credentials
+
+## Dev Workflow
+
+- Prefer hooks and skills for repeatable patterns
+- Use Haiku for cheap checks, Sonnet for judgment, Opus for synthesis
+- Separate shared config (settings.json) from personal (settings.local.json)
+- When setting up new patterns: explain the tradeoffs, then just do it
