@@ -20,6 +20,7 @@ fi
 # Add *.local.* pattern if missing
 if ! grep -Fq '*.local.*' .gitignore; then
   echo '' >> .gitignore
+  echo '# Local overrides (e.g., settings.local.json for machine-specific config)' >> .gitignore
   echo '*.local.*' >> .gitignore
   echo '✓ Added *.local.* to .gitignore'
 fi
