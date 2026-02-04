@@ -12,4 +12,9 @@ Thumbs.db
 # Files that might appear on external disks
 .Spotlight-V100
 .Trashes
+
+# Local overrides (machine-specific)
+# Convention: settings.local.json alongside settings.json
+*.local.*
+
 *local*

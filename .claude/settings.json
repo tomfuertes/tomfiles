@@ -7,7 +7,41 @@
         "hooks": [
           {
             "type": "command",
-            "command": "grep -Fq '*local*' .gitignore 2>/dev/null || (echo '' >> .gitignore && echo '*local*' >> .gitignore && echo '✓ Added *local* to .gitignore')"
+            "command": "\"$HOME/.claude/hooks/ensure-local-gitignore.sh\""
+          },
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/session-secrets-scan.sh\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/prompt-secrets-warn.sh\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/detect-secrets.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/bash-secrets-warn.sh\""
           }
         ]
       }

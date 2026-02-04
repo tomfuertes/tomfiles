@@ -1,0 +1,22 @@
+# Dotfiles Manifest - single source of truth for sync
+# Lines: paths to sync | !prefix = exclude | # comments
+
+# === ROOT DOTFILES ===
+.zshrc
+.gitconfig
+.gitignore
+.curlrc
+.wgetrc
+.editorconfig
+.hushlogin
+.extra
+
+# === CLAUDE CONFIG ===
+.claude/settings.json
+.claude/CLAUDE.md
+.claude/keybindings.json
+.claude/hooks/
+.claude/rules/
+
+# === NEVER SYNC (sensitive/local-only) ===
+!.claude/settings.local.json
