@@ -45,5 +45,9 @@
       "you got a good one",
       "you too"
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "jq -r '\"\\u001b[2m\" + .model.display_name + \"\\u001b[0m · \\u001b[36m\" + (.workspace.current_dir | split(\"/\") | last) + \"\\u001b[0m · \\u001b[32m$\" + ((.cost.total_cost_usd // 0) * 100 | floor / 100 | tostring) + \"\\u001b[0m · \\u001b[33m\" + (.context_window.remaining_percentage | tostring) + \"%\\u001b[0m\"'"
   }
 }
