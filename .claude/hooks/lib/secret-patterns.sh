@@ -62,7 +62,7 @@ SECRET_PATTERNS=(
 check_for_secrets() {
   local content="$1"
   for pattern in "${SECRET_PATTERNS[@]}"; do
-    if echo "$content" | grep -qE "$pattern"; then
+    if echo "$content" | grep -qE -- "$pattern"; then
       echo "$pattern"
       return 0
     fi
@@ -74,7 +74,7 @@ check_for_secrets() {
 get_redacted_match() {
   local content="$1"
   local pattern="$2"
-  local matched=$(echo "$content" | grep -oE "$pattern" | head -1)
+  local matched=$(echo "$content" | grep -oE -- "$pattern" | head -1)
   echo "${matched:0:10}..."
 }
 

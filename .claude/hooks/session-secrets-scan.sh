@@ -11,7 +11,7 @@ source "$HOOK_DIR/lib/secret-patterns.sh" || { echo "Warning: Cannot load secret
 git rev-parse --git-dir &>/dev/null || exit 0
 
 COMBINED=$(get_combined_pattern)
-FINDINGS=$(git ls-files -z 2>/dev/null | xargs -0 grep -lE "$COMBINED" 2>/dev/null | head -10)
+FINDINGS=$(git ls-files -z 2>/dev/null | xargs -0 grep -lE -- "$COMBINED" 2>/dev/null | head -10)
 
 if [[ -n "$FINDINGS" ]]; then
   echo "" >&2
@@ -20,7 +20,7 @@ if [[ -n "$FINDINGS" ]]; then
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
 
   while IFS= read -r file; do
-    LINES=$(grep -nE "$COMBINED" "$file" 2>/dev/null | head -3 | cut -d: -f1 | xargs -I{} echo "     Line {}")
+    LINES=$(grep -nE -- "$COMBINED" "$file" 2>/dev/null | head -3 | cut -d: -f1 | xargs -I{} echo "     Line {}")
     echo "   📄 $file" >&2
     echo "$LINES" >&2
   done <<< "$FINDINGS"
