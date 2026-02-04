@@ -12,6 +12,7 @@
 
 - Don't ask "would you like me to implement X?" - just do it.
 - Never add `Co-Authored-By` or `🤖 Generated with` lines to commits or PRs.
+- When using Playwright, always save screenshots/files to `.playwright/` directory (e.g., `.playwright/screenshot.png`).
 
 ## Voice-to-Text Processing
 

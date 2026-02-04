@@ -15,3 +15,8 @@ Thumbs.db
 
 # Local overrides (e.g., settings.local.json for machine-specific config)
 *.local.*
+
+# Playwright
+.playwright/
+page-*.png
+page-*.jpeg
