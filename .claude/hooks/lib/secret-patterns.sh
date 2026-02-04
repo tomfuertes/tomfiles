@@ -22,10 +22,10 @@ SECRET_PATTERNS=(
 
   # OpenAI
   'sk-[a-zA-Z0-9]{48}'
-  'sk-proj-[a-zA-Z0-9-_]{80,}'
+  'sk-proj-[a-zA-Z0-9_-]{80,}'
 
   # Anthropic
-  'sk-ant-[a-zA-Z0-9-_]{80,}'
+  'sk-ant-[a-zA-Z0-9_-]{80,}'
 
   # Slack
   'xox[baprs]-[0-9]{10,13}-[0-9]{10,13}-[a-zA-Z0-9]{24}'
