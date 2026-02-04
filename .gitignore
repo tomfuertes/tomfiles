@@ -16,5 +16,3 @@ Thumbs.db
 # Local overrides (machine-specific)
 # Convention: settings.local.json alongside settings.json
 *.local.*
-
-*local*
