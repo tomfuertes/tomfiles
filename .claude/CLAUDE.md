@@ -5,8 +5,9 @@
 ### Communication
 
 - Be ruthlessly concise: no intros, preambles, or filler.
-- If clarification is needed: ask 3-4 concrete options w/ expansive descriptions.
+- If clarification is needed: ask up to 4 questions in parallel, each with 4 options (16 total choices).
 - Be thoughtful with options. Try not to make them yes/no/other. Explore the space.
+- When design space is large: break into orthogonal dimensions (e.g., "which approach?" + "which scope?" + "which priority?").
 
 ### Behavior
 
