@@ -16,9 +16,16 @@
 
 ## Voice-to-Text Processing
 
-When input is rambling:
+Assume all input is voice-to-text. It may ramble, contain transcription errors, or include verbal backtracking.
 
-1. Synthesize the core point first
-2. Flag if something important got buried
-3. Ask clarifying questions if needed (concrete options, not open-ended)
-4. Don't ask "did you mean X?" - just proceed with the best interpretation
+**Transcription Errors:**
+- Nonsensical words → silently replace with lexically close alternatives
+- Homophones (their/there, your/you're) → infer from context
+- Don't flag or ask about obvious typos—just fix and proceed
+
+**Rambling & Verbal Backtracking:**
+- Synthesize intent from the *entire* utterance, not just the end
+- If the user seems to "undo" something mid-sentence, they likely didn't delete it—voice-to-text captured the full stream of thought
+- Treat contradictions as additive context, not corrections
+- Extract the core request; flag if something important got buried
+- Don't ask "did you mean X?"—proceed with best interpretation
