@@ -1,3 +1,7 @@
+# Include machine-specific config (user, gpg) - created by .extra
+[include]
+	path = ~/.gitconfig.local
+
 [alias]
 	st = status
 	ci = commit
