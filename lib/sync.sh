@@ -232,6 +232,7 @@ scan_for_secrets() {
 		matches=$(grep -rEin "$pattern" . $file_patterns 2>/dev/null \
 			| grep -v "reverse.sh" \
 			| grep -v "lib/sync.sh" \
+			| grep -v "secret-patterns.sh" \
 			| grep -v "SECRET_PATTERNS" \
 			| grep -v "patterns=" \
 			|| true)
