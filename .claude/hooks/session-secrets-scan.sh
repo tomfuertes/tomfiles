@@ -11,7 +11,7 @@ source "$HOOK_DIR/lib/secret-patterns.sh" || { echo "Warning: Cannot load secret
 git rev-parse --git-dir &>/dev/null || exit 0
 
 COMBINED=$(get_combined_pattern)
-FINDINGS=$(git ls-files -z 2>/dev/null | xargs -0 grep -lE -- "$COMBINED" 2>/dev/null | head -10)
+FINDINGS=$(git ls-files -z 2>/dev/null | xargs -0 grep -lE -- "$COMBINED" 2>/dev/null | head -10) || true
 
 if [[ -n "$FINDINGS" ]]; then
   echo "" >&2
