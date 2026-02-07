@@ -53,6 +53,11 @@ build_rsync_filter_file() {
 		done >> "$filter_file"
 	fi
 
+	# Exclude sensitive files (must come before includes — rsync first-match-wins)
+	for item in "${EXCLUDES[@]}"; do
+		echo "- $item" >> "$filter_file"
+	done
+
 	# Include the actual items
 	for item in "${INCLUDES[@]}"; do
 		if [[ "$item" == */ ]]; then
@@ -62,11 +67,6 @@ build_rsync_filter_file() {
 		else
 			echo "+ $item" >> "$filter_file"
 		fi
-	done
-
-	# Exclude sensitive files
-	for item in "${EXCLUDES[@]}"; do
-		echo "- $item" >> "$filter_file"
 	done
 
 	# Exclude everything else

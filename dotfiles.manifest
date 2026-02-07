@@ -22,3 +22,4 @@
 # === NEVER SYNC (sensitive/local-only) ===
 !.claude/settings.local.json
 !.claude/skills/last30days/
+!.DS_Store
