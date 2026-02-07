@@ -23,5 +23,6 @@
 
 # === NEVER SYNC (sensitive/local-only) ===
 !.claude/settings.local.json
-!.claude/skills/last30days/
 !.DS_Store
+
+# npx-managed skills are auto-excluded via MANAGED_SKILLS in bootstrap.sh

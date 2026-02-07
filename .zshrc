@@ -73,7 +73,7 @@ alias j=z
 alias c="clear"
 alias G="gh browse"
 alias b="npx bun"
-alias brup="brew update; brew upgrade; brew cleanup"
+alias brup="brew update && brew upgrade && brew cleanup"
 alias subl=code
 alias cursor=code
 
@@ -91,7 +91,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # Utilities
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g'
+alias update='sudo softwareupdate -i -a && brew update && brew upgrade && brew cleanup && (cd ~/sandbox/git-repos/tomfiles && ./bootstrap.sh) && echo "All done!"'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"

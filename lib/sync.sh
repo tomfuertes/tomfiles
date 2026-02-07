@@ -58,6 +58,12 @@ build_rsync_filter_file() {
 		echo "- $item" >> "$filter_file"
 	done
 
+	# Exclude npx-managed skills (derived from MANAGED_SKILLS in bootstrap.sh)
+	for entry in "${MANAGED_SKILLS[@]}"; do
+		local skill_name="${entry##*|}"
+		echo "- .claude/skills/$skill_name/" >> "$filter_file"
+	done
+
 	# Include the actual items
 	for item in "${INCLUDES[@]}"; do
 		if [[ "$item" == */ ]]; then
@@ -82,14 +88,21 @@ check_local_skills() {
 
 	[[ ! -d "$home_skills" ]] && return
 
+	# Build lookup of npx-managed skill names (colon-delimited for pure-bash matching)
+	local managed_names=":"
+	for entry in "${MANAGED_SKILLS[@]}"; do
+		managed_names+="${entry##*|}:"
+	done
+
 	local new_skills=()
 	for skill_dir in "$home_skills"/*/; do
 		[[ ! -d "$skill_dir" ]] && continue
 		local skill_name=$(basename "$skill_dir")
 		[[ "$skill_name" == "*" ]] && continue
-		if [[ ! -d "$repo_skills/$skill_name" ]]; then
-			new_skills+=("$skill_name")
-		fi
+		# Skip skills managed by npx or already in repo
+		[[ "$managed_names" == *":$skill_name:"* ]] && continue
+		[[ -d "$repo_skills/$skill_name" ]] && continue
+		new_skills+=("$skill_name")
 	done
 
 	if [[ ${#new_skills[@]} -gt 0 ]]; then

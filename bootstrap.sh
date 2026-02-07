@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# === AGENT SKILLS MANIFEST ===
+# Skills installed globally via npx skills (vercel-labs/skills CLI).
+# These live in ~/.claude/skills/ but are NOT tracked in this repo.
+# Format: "repo|skill-name"
+MANAGED_SKILLS=(
+	"anthropics/skills|skill-creator"
+	"mvanhorn/last30days-skill|last30days"
+)
+
 # Prevent script from being sourced
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
 	echo "Error: This script should be executed, not sourced."
@@ -47,4 +56,40 @@ if show_diffs "./" "$HOME/"; then
 	fi
 else
 	echo "No changes to sync."
+fi
+
+# === INSTALL MANAGED SKILLS ===
+if command -v npx &>/dev/null && [[ ${#MANAGED_SKILLS[@]} -gt 0 ]]; then
+	echo ""
+	echo "━━━ Agent skills ━━━"
+	needs_update=false
+	for entry in "${MANAGED_SKILLS[@]}"; do
+		repo="${entry%%|*}"
+		skill="${entry##*|}"
+		if [[ -d "$HOME/.claude/skills/$skill" ]]; then
+			echo "  ✓ $skill"
+			needs_update=true
+		else
+			echo "  ↓ $skill (installing...)"
+			output=$(npx --yes skills add "$repo" --skill "$skill" -g --yes 2>&1)
+			if [[ $? -eq 0 ]]; then
+				echo "  ✓ $skill"
+			else
+				echo "  ✗ $skill (failed)" >&2
+				echo "    $output" >&2
+			fi
+		fi
+	done
+	if $needs_update; then
+		echo "  ⟳ updating installed skills..."
+		output=$(npx --yes skills update -g 2>&1)
+		if [[ $? -eq 0 ]]; then
+			echo "  ✓ up to date"
+		else
+			echo "  ⚠ update failed (skills may be outdated)" >&2
+			echo "    $output" >&2
+		fi
+	fi
+else
+	[[ ${#MANAGED_SKILLS[@]} -gt 0 ]] && echo "Skipping agent skills (npx not found)."
 fi
