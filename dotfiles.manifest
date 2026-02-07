@@ -17,6 +17,7 @@
 .claude/keybindings.json
 .claude/hooks/
 .claude/rules/
+.claude/skills/
 
 # === NEVER SYNC (sensitive/local-only) ===
 !.claude/settings.local.json
