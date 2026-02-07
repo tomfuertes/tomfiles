@@ -133,7 +133,7 @@ show_diffs() {
 		local src_file="$src$file"
 		local dest_file="$dest$file"
 
-		echo "━━━ $file ━━━"
+		echo -e "\033[36m━━━ $file ━━━\033[0m"
 		if [[ -f "$dest_file" ]]; then
 			modified_files+=("$file")
 			# Get diff stats
@@ -160,21 +160,21 @@ show_diffs() {
 
 	# Print summary
 	if $has_changes; then
-		echo "━━━ Summary ━━━"
+		echo -e "\033[33m━━━ Summary ━━━\033[0m"
 		if [[ ${#new_files[@]} -gt 0 ]]; then
 			echo "New files (${#new_files[@]}):"
 			for f in "${new_files[@]}"; do
-				echo "  + $f"
+				echo -e "  \033[32m+ $f\033[0m"
 			done
 		fi
 		if [[ ${#modified_files[@]} -gt 0 ]]; then
 			echo "Modified files (${#modified_files[@]}):"
 			for f in "${modified_files[@]}"; do
-				echo "  ~ $f"
+				echo -e "  \033[33m~ $f\033[0m"
 			done
 		fi
 		echo ""
-		echo "Total: +$lines_added -$lines_removed lines"
+		echo -e "Total: \033[32m+$lines_added\033[0m \033[31m-$lines_removed\033[0m lines"
 	fi
 
 	$has_changes
