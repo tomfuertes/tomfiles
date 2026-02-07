@@ -34,4 +34,5 @@ git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure" 2>/dev/null
 # Remove outdated versions from the cellar.
 brew cleanup
 
+
 echo "Done! Restart your shell or run: source ~/.zshrc"

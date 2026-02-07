@@ -93,3 +93,16 @@ if command -v npx &>/dev/null && [[ ${#MANAGED_SKILLS[@]} -gt 0 ]]; then
 else
 	[[ ${#MANAGED_SKILLS[@]} -gt 0 ]] && echo "Skipping agent skills (npx not found)."
 fi
+
+# === EXCLUDE node_modules FROM TIME MACHINE ===
+# Uses xattr to mark each node_modules dir (no sudo/FDA needed)
+new_excludes=0
+while IFS= read -r dir; do
+	if ! xattr -p com.apple.metadata:com_apple_backup_excludeItem "$dir" &>/dev/null; then
+		xattr -w com.apple.metadata:com_apple_backup_excludeItem com.apple.backupd "$dir" 2>/dev/null && ((new_excludes++))
+	fi
+done < <(find "$HOME/sandbox" -type d -name node_modules -prune 2>/dev/null)
+if ((new_excludes > 0)); then
+	echo ""
+	echo "  Excluded $new_excludes node_modules directories from Time Machine."
+fi
