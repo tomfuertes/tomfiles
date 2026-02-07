@@ -9,7 +9,6 @@
 .wgetrc
 .editorconfig
 .hushlogin
-.extra
 
 # === GHOSTTY ===
 .config/ghostty/

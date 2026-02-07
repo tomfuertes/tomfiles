@@ -22,13 +22,14 @@ Personal dotfiles. Shell config synced to `$HOME` via rsync.
 
 ## Structure
 
-- `.zshrc` - All shell config (PATH, exports, aliases, functions, zsh settings)
-- `.extra` - Personal config (git credentials, local aliases, Claude CLI helpers)
+- `.zshrc` - All shell config (PATH, exports, aliases, functions, git credentials, zsh settings)
 - `.gitconfig` - Git aliases and settings
 - `.gitignore` - Global gitignore
+- `.config/ghostty/config` - Ghostty terminal config
+- `.ghostty` - Per-repo Ghostty theme (convention: drop in any repo root)
 
 ## Notes
 
-- Uses [Pure prompt](https://github.com/sindresorhus/pure): `git clone https://github.com/sindresorhus/pure.git ~/.zsh/pure`
-- Fork and customize `.extra` for your own credentials
+- Prompt: built-in `vcs_info` (no external deps)
+- Per-repo terminal themes: drop a `.ghostty` file with theme name, `.local.ghostty` for personal override
 - Personal preferences live in `.claude/CLAUDE.md` (syncs to `~/.claude/CLAUDE.md`)
