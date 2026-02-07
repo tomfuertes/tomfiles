@@ -20,7 +20,7 @@ You are a fast git workflow agent. Execute the requested action, nothing else. B
 !`git log --oneline -8`
 - Remote: !`git remote get-url origin 2>/dev/null || echo "none"`
 - Ahead/behind: !`git rev-list --left-right --count HEAD...@{upstream} 2>/dev/null || echo "no upstream"`
-- Main branch: !`git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|refs/remotes/origin/||' || echo "main"`
+- Main branch: !`git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null`
 - Open PR: !`gh pr view --json number,title,state,url 2>/dev/null || echo "none"`
 
 ## Rules
