@@ -3,7 +3,7 @@ name: ship
 description: Git workflow — commit, push, PR, squash, checkout. Invoke with /ship.
 disable-model-invocation: true
 model: haiku
-context: fork
+context: none
 agent: general-purpose
 allowed-tools: Bash(git *), Bash(gh *)
 argument-hint: [commit|push|pr|pr merge|pr status|squash|checkout <branch>]

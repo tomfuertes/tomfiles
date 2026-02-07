@@ -77,6 +77,9 @@ udf() {
   npm run audit
 }
 
+# Ghostty default theme (per-repo override via .ghostty file)
+_GHOSTTY_DEFAULT_THEME="Flexoki Dark"
+
 # Claude Code CLI helpers
 cci() {
   claude -p "commit all staged and modified files with a concise commit message. Do NOT add Co-Authored-By or Generated-with lines.${1:+ Context: $1}" \

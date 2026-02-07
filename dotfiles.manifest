@@ -11,6 +11,9 @@
 .hushlogin
 .extra
 
+# === GHOSTTY ===
+.config/ghostty/
+
 # === CLAUDE CONFIG ===
 .claude/settings.json
 .claude/CLAUDE.md

@@ -1,1 +1,12 @@
+# Ghostty Configuration
+
+# Theme (uncomment to swap)
+theme = Flexoki Dark
+# theme = Atom
+# theme = Firefox Dev
+# theme = Github Dark
+# theme = IR Black
+# theme = Liquid Carbon Transparent
+
+# Behavior
 confirm-close-surface = false

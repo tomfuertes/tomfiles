@@ -78,10 +78,12 @@ o() {
 # =============================================================================
 # ZSH CONFIG
 # =============================================================================
-# Pure prompt
-fpath+=$HOME/.zsh/pure
-autoload -U promptinit; promptinit
-prompt pure
+# Prompt (git branch via vcs_info, no external deps)
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '%F{magenta}%b%f '
+setopt PROMPT_SUBST
+PROMPT='%F{cyan}%1~%f ${vcs_info_msg_0_}%F{yellow}❯%f '
 
 # Completion
 autoload -U +X bashcompinit && bashcompinit
@@ -106,6 +108,49 @@ fi
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 
 # =============================================================================
+# GHOSTTY PER-REPO THEMES
+# =============================================================================
+# Drop a .ghostty file in any repo with the theme name (e.g. "IR Black")
+# Default theme set via _GHOSTTY_DEFAULT_THEME in .extra
+_GHOSTTY_THEME_DIR="/Applications/Ghostty.app/Contents/Resources/ghostty/themes"
+_GHOSTTY_CURRENT=""
+
+_ghostty_apply_theme() {
+  local theme_file="$_GHOSTTY_THEME_DIR/$1"
+  [[ -f "$theme_file" ]] || return
+  while IFS= read -r line; do
+    case "$line" in
+      palette\ =\ *)
+        local rest="${line#palette = }" idx="${rest%%=*}" color="${rest#*=}"
+        printf '\033]4;%s;%s\033\\' "$idx" "$color" ;;
+      foreground\ =\ *)    printf '\033]10;%s\033\\' "${line#foreground = }" ;;
+      background\ =\ *)    printf '\033]11;%s\033\\' "${line#background = }" ;;
+      cursor-color\ =\ *)  printf '\033]12;%s\033\\' "${line#cursor-color = }" ;;
+    esac
+  done < "$theme_file"
+}
+
+_ghostty_chpwd() {
+  [[ "$TERM_PROGRAM" != "ghostty" ]] && return
+  # Walk up from $PWD looking for .local.ghostty (personal) then .ghostty (shared)
+  local dir="$PWD" theme=""
+  while [[ "$dir" != "/" ]]; do
+    [[ -f "$dir/.local.ghostty" ]] && { theme="$(<"$dir/.local.ghostty")"; break; }
+    [[ -f "$dir/.ghostty" ]] && { theme="$(<"$dir/.ghostty")"; break; }
+    dir="${dir:h}"
+  done
+  theme="${theme:-${_GHOSTTY_DEFAULT_THEME:-Flexoki Dark}}"
+  # Skip if theme hasn't changed
+  [[ "$theme" == "$_GHOSTTY_CURRENT" ]] && return
+  _GHOSTTY_CURRENT="$theme"
+  _ghostty_apply_theme "$theme"
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd _ghostty_chpwd
+
+# =============================================================================
 # MACHINE-SPECIFIC (credentials, local config)
 # =============================================================================
 [ -r ~/.extra ] && [ -f ~/.extra ] && source ~/.extra
+_ghostty_chpwd  # apply theme after .extra sets REPO_THEMES
