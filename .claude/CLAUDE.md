@@ -14,6 +14,7 @@
 - Don't ask "would you like me to implement X?" - just do it.
 - Never add `Co-Authored-By` or `🤖 Generated with` lines to commits or PRs.
 - When using Playwright, always save screenshots/files to `.playwright/` directory (e.g., `.playwright/screenshot.png`).
+- **Ghostty config:** `.ghostty` is the shareable project theme (track in git). `.local.ghostty` is personal (gitignore via `*.local.*`). When setting up a new repo, use this convention.
 
 ### Core Principles
 
