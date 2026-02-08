@@ -116,6 +116,7 @@ o() {
   fi
 }
 
+killport() { lsof -ti:"${1:-3000}" | xargs kill -9 2>/dev/null; echo "Port ${1:-3000} cleared"; }
 notice() { echo -e "\033[1;32m=> $1\033[0m"; }
 msg() { echo -e "\033[1;34m=> $1\033[0m"; }
 error() { echo -e "\033[1;31m=> Error: $1\033[0m"; }

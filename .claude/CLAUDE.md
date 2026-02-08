@@ -15,6 +15,7 @@
 - Never add `Co-Authored-By` or `🤖 Generated with` lines to commits or PRs.
 - When using Playwright, always save screenshots/files to `.playwright/` directory (e.g., `.playwright/screenshot.png`).
 - **Ghostty config:** `.ghostty` is the shareable project theme (track in git). `.local.ghostty` is personal (gitignore via `*.local.*`). When setting up a new repo, use this convention.
+- **Killing dev servers:** Use `killport` (or `killport 8080` for other ports) instead of raw `lsof -ti:PORT | xargs kill -9`. The alias is in `.zshrc`.
 
 ### Core Principles
 
