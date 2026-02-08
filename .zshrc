@@ -76,14 +76,19 @@ alias b="npx bun"
 alias brup="brew update && brew upgrade && brew cleanup"
 alias subl=code
 alias cursor=code
+alias t="tree -a -I '.git|node_modules'"
+alias mkdir="mkdir -p"
+alias ports="lsof -iTCP -sTCP:LISTEN -P -n"
+alias h="history"
+alias rm="rm -i"
+alias cat="bat --plain"
 
-# ls with colors (macOS)
-export LSCOLORS='BxBxhxDxfxhxhxhxhxcxcx'
-alias l="ls -lFG"
-alias la="ls -lAFG"
-alias ll="la -h"
-alias lsd="ls -lFG | grep --color=never '^d'"
-alias ls="command ls -G"
+# ls via eza (modern ls replacement)
+alias ls="eza --color=auto"
+alias l="eza -lF"
+alias la="eza -laF"
+alias ll="eza -laF"
+alias lsd="eza -lFD"
 
 # grep with colors
 alias grep='grep --color=auto'

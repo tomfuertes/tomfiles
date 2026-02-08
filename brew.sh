@@ -15,6 +15,8 @@ brew install jq
 brew install grep
 brew install wget
 brew install tree
+brew install bat   # cat with syntax highlighting
+brew install eza   # modern ls replacement
 
 # Development
 brew install oven-sh/bun/bun
