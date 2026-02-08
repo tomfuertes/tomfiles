@@ -5,6 +5,15 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MANIFEST="$SCRIPT_DIR/dotfiles.manifest"
 
+# === AGENT SKILLS MANIFEST ===
+# Skills installed globally via npx skills (vercel-labs/skills CLI).
+# These live in ~/.claude/skills/ but are NOT tracked in this repo.
+# Format: "repo|skill-name"
+MANAGED_SKILLS=(
+	"anthropics/skills|skill-creator"
+	"mvanhorn/last30days-skill|last30days"
+)
+
 # Fail fast if manifest missing
 [[ -f "$MANIFEST" ]] || { echo "Error: $MANIFEST not found" >&2; exit 1; }
 
@@ -61,7 +70,7 @@ build_rsync_filter_file() {
 	# Exclude npx-managed skills (derived from MANAGED_SKILLS in bootstrap.sh)
 	for entry in "${MANAGED_SKILLS[@]}"; do
 		local skill_name="${entry##*|}"
-		echo "- .claude/skills/$skill_name/" >> "$filter_file"
+		echo "- .claude/skills/$skill_name" >> "$filter_file"
 	done
 
 	# Include the actual items

@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-# === AGENT SKILLS MANIFEST ===
-# Skills installed globally via npx skills (vercel-labs/skills CLI).
-# These live in ~/.claude/skills/ but are NOT tracked in this repo.
-# Format: "repo|skill-name"
-MANAGED_SKILLS=(
-	"anthropics/skills|skill-creator"
-	"mvanhorn/last30days-skill|last30days"
-)
-
 # Prevent script from being sourced
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
 	echo "Error: This script should be executed, not sourced."
