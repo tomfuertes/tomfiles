@@ -33,3 +33,4 @@ Personal dotfiles. Shell config synced to `$HOME` via rsync.
 - Prompt: built-in `vcs_info` (no external deps)
 - Per-repo terminal themes: drop a `.ghostty` file with theme name, `.local.ghostty` for personal override
 - Personal preferences live in `.claude/CLAUDE.md` (syncs to `~/.claude/CLAUDE.md`)
+- Git worktree workflow is documented in `.claude/CLAUDE.md` under "Git Worktrees"

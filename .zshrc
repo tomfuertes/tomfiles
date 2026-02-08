@@ -116,7 +116,15 @@ o() {
   fi
 }
 
-killport() { lsof -ti:"${1:-3000}" | xargs kill -9 2>/dev/null; echo "Port ${1:-3000} cleared"; }
+killport() {
+  local port="${1:-3000}"
+  if (( port < 1024 )); then
+    echo "Refused: port $port is a system port (< 1024)" >&2
+    return 1
+  fi
+  lsof -ti:"$port" | xargs kill -9 2>/dev/null
+  echo "Port $port cleared"
+}
 notice() { echo -e "\033[1;32m=> $1\033[0m"; }
 msg() { echo -e "\033[1;34m=> $1\033[0m"; }
 error() { echo -e "\033[1;31m=> Error: $1\033[0m"; }

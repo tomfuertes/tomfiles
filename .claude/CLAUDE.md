@@ -83,6 +83,30 @@
 - Point at logs, errors, failing tests → then resolve them
 - Fix failing CI tests without being told how
 
+### Git Worktrees
+
+When the user describes a task that should be done in isolation, or mentions "worktree"/"work tree":
+
+**Setup:**
+1. Auto-generate a branch name from the task intent. Check `git branch -a` for the repo's naming convention (e.g., `fix/auth-bug`, `feature/new-login`, or flat `fix-auth-bug`) and match it. If no clear pattern, just slugify to lowercase hyphenated. Keep under 50 chars.
+2. Determine repo root (`git rev-parse --show-toplevel`) and repo name (`basename` of root).
+3. Create the worktree: `git worktree add ../<repo-name>-<branch> -b <branch>`
+4. If the project has `package.json`, `requirements.txt`, `Gemfile`, etc., install deps in the worktree.
+
+**Working inline:**
+- Prefix all Bash commands with `cd <worktree-abs-path> &&` to execute in the worktree.
+- Use **absolute paths** for Read, Edit, Write, Glob, and Grep pointing into the worktree directory.
+- The main session stays rooted in the original repo — only Bash commands cd into the worktree.
+
+**Commits and PRs:**
+- Commit and push from the worktree path: `cd <worktree-abs-path> && git add ... && git commit ...`
+- Create PRs with `cd <worktree-abs-path> && gh pr create ...`
+
+**Cleanup:**
+- Do NOT auto-remove worktrees after PR creation (user may have review feedback).
+- When asked to clean up, run `git worktree list`, identify worktrees whose branches are merged or deleted on remote, and remove them with `git worktree remove`.
+- Proactively mention stale worktrees if `git worktree list` shows 3+ entries during setup.
+
 ## Voice-to-Text Processing
 
 Assume all input is voice-to-text. It may ramble, contain transcription errors, or include verbal backtracking.
