@@ -104,11 +104,20 @@ When the user describes a task that should be done in isolation, or mentions "wo
 
 **Parallel via agent teams:**
 When the user has multiple independent tasks, combine worktrees with `TeamCreate`:
-1. Team lead stays in the main worktree and orchestrates.
-2. Create one worktree per workstream, `/add-dir` each one.
-3. Spawn each teammate with its worktree's absolute path in the prompt.
+1. Team lead stays in the main worktree and orchestrates (can `/add-dir` worktrees to browse them).
+2. Create one worktree per workstream.
+3. Spawn each teammate with explicit worktree instructions in the prompt: "Your worktree is `<abs-path>`. Use absolute paths for all file operations. Prefix all Bash commands with `cd <abs-path> &&`."
 4. Each agent works independently — commits, pushes, and creates PRs from its own worktree.
 5. Team lead coordinates via TaskList/SendMessage.
+
+**Handoff (fresh context in worktree):**
+For non-trivial tasks where a fresh session with full context is better than inline work, write the plan to `~/.claude/plans/<branch-name>.md` and print a ready-to-paste launch command:
+```bash
+cd <worktree-abs-path> && claude "$(cat ~/.claude/plans/<branch-name>.md)"
+```
+- Plan file must be self-contained: goal, relevant file paths (absolute to worktree), key context, and concrete steps.
+- One plan file per branch — supports multiple concurrent worktrees.
+- Always print the launch command as the final output so the user can copy it directly.
 
 **Cleanup:**
 - Do NOT auto-remove worktrees after PR creation (user may have review feedback).
