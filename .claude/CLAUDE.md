@@ -93,22 +93,22 @@ When the user describes a task that should be done in isolation, or mentions "wo
 3. Create the worktree: `git worktree add ../<repo-name>-<branch> -b <branch>`
 4. If the project has `package.json`, `requirements.txt`, `Gemfile`, etc., install deps in the worktree.
 
-**Working inline:**
-- Prefix all Bash commands with `cd <worktree-abs-path> &&` to execute in the worktree.
-- Use **absolute paths** for Read, Edit, Write, Glob, and Grep pointing into the worktree directory.
-- The main session stays rooted in the original repo — only Bash commands cd into the worktree.
+**Register the worktree** so Claude has full read/edit access without permission prompts:
+- Run `/add-dir <worktree-abs-path>` after creating the worktree.
+- Use **absolute paths** for all file operations (Read, Edit, Write, Glob, Grep) in the worktree.
+- Bash commands still need `cd <worktree-abs-path> &&` prefix (working directory doesn't change).
 
 **Commits and PRs:**
-- Commit and push from the worktree path: `cd <worktree-abs-path> && git add ... && git commit ...`
-- Create PRs with `cd <worktree-abs-path> && gh pr create ...`
+- `cd <worktree-abs-path> && git add ... && git commit ...`
+- `cd <worktree-abs-path> && gh pr create ...`
 
 **Parallel via agent teams:**
-When the user has multiple independent tasks (or one large task with independent workstreams), combine worktrees with `TeamCreate`:
+When the user has multiple independent tasks, combine worktrees with `TeamCreate`:
 1. Team lead stays in the main worktree and orchestrates.
-2. Create one worktree per workstream.
-3. Spawn each teammate with its worktree's **absolute path** in the prompt (e.g., "Work in /Users/tomfuertes/sandbox/git-repos/myapp-fix-auth. All file operations use that absolute path, all Bash commands cd there first.").
+2. Create one worktree per workstream, `/add-dir` each one.
+3. Spawn each teammate with its worktree's absolute path in the prompt.
 4. Each agent works independently — commits, pushes, and creates PRs from its own worktree.
-5. Team lead coordinates via TaskList/SendMessage, reviews PRs, and cleans up worktrees when done.
+5. Team lead coordinates via TaskList/SendMessage.
 
 **Cleanup:**
 - Do NOT auto-remove worktrees after PR creation (user may have review feedback).
