@@ -16,7 +16,9 @@ Thumbs.db
 # Local overrides (e.g., settings.local.json for machine-specific config)
 *.local.*
 
+# Dependencies / tooling
+node_modules/
+.wrangler/
+
 # Playwright
 .playwright/
-page-*.png
-page-*.jpeg
