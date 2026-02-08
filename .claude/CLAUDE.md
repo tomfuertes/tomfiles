@@ -102,6 +102,14 @@ When the user describes a task that should be done in isolation, or mentions "wo
 - Commit and push from the worktree path: `cd <worktree-abs-path> && git add ... && git commit ...`
 - Create PRs with `cd <worktree-abs-path> && gh pr create ...`
 
+**Parallel via agent teams:**
+When the user has multiple independent tasks (or one large task with independent workstreams), combine worktrees with `TeamCreate`:
+1. Team lead stays in the main worktree and orchestrates.
+2. Create one worktree per workstream.
+3. Spawn each teammate with its worktree's **absolute path** in the prompt (e.g., "Work in /Users/tomfuertes/sandbox/git-repos/myapp-fix-auth. All file operations use that absolute path, all Bash commands cd there first.").
+4. Each agent works independently — commits, pushes, and creates PRs from its own worktree.
+5. Team lead coordinates via TaskList/SendMessage, reviews PRs, and cleans up worktrees when done.
+
 **Cleanup:**
 - Do NOT auto-remove worktrees after PR creation (user may have review feedback).
 - When asked to clean up, run `git worktree list`, identify worktrees whose branches are merged or deleted on remote, and remove them with `git worktree remove`.
