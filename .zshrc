@@ -199,10 +199,13 @@ if type brew &>/dev/null; then
   compinit
 fi
 
-# Tab completion for `g` alias
-if type _git &> /dev/null; then
-  complete -o default -o nospace -F _git g
-fi
+# Tab completion for aliases
+compdef g=git
+compdef ls=ls l=ls la=ls ll=ls lsd=ls
+compdef cat=cat
+compdef subl=code cursor=code
+compdef pip=pip3 python=python3
+compdef t=tree
 
 # SSH hostname completion
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh

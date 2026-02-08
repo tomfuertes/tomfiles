@@ -45,6 +45,10 @@
           {
             "type": "command",
             "command": "\"$HOME/.claude/hooks/bash-secrets-warn.sh\""
+          },
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/git-clean-guard.sh\""
           }
         ]
       }
