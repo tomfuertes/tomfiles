@@ -115,6 +115,37 @@ When the user has multiple independent tasks (or one large task with independent
 - When asked to clean up, run `git worktree list`, identify worktrees whose branches are merged or deleted on remote, and remove them with `git worktree remove`.
 - Proactively mention stale worktrees if `git worktree list` shows 3+ entries during setup.
 
+### PR Screenshots via R2
+
+Host PR screenshots on a Cloudflare R2 bucket with a custom domain. GitHub has no image upload API ([cli/cli#1895](https://github.com/cli/cli/issues/1895)), so we self-host.
+
+**Setup (once, all via `wrangler` CLI):**
+```bash
+npx wrangler r2 bucket create pr-assets
+# Custom domain: configure in Cloudflare dashboard (R2 > pr-assets > Settings > Custom Domains)
+# Custom domain: pr-assets.tomfuertes.com (configured in dashboard)
+echo -e "User-agent: *\nDisallow: /" > /tmp/robots.txt
+npx wrangler r2 object put pr-assets/robots.txt --file /tmp/robots.txt --content-type text/plain
+```
+
+**Upload:**
+```bash
+REPO=$(basename "$(git rev-parse --show-toplevel)")
+UUID=$(uuidgen | head -c 8 | tr '[:upper:]' '[:lower:]')
+npx wrangler r2 object put "pr-assets/${REPO}/${UUID}-<pr-number>-description.png" \
+  --file .playwright/screenshot.png --content-type image/png
+```
+
+**Reference in PR body or comment:**
+```
+![description](https://pr-assets.tomfuertes.com/<repo>/<uuid>-<pr-number>-description.png)
+```
+
+- UUID prefix makes URLs unguessable — public but obscure
+- Organized by repo name, so screenshots don't collide across projects
+- `robots.txt` prevents search engine indexing
+- **Cleanup:** `npx wrangler r2 object delete pr-assets/<repo>/<filename>`
+
 ## Voice-to-Text Processing
 
 Assume all input is voice-to-text. It may ramble, contain transcription errors, or include verbal backtracking.

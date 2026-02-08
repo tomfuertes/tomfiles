@@ -30,6 +30,7 @@ export LC_ALL='en_US.UTF-8'
 export LESS_TERMCAP_md=$'\e[1;33m'
 export MANPAGER='less -X'
 export GPG_TTY=$(tty)
+export CLOUDFLARE_ACCOUNT_ID='fe43646df25e695ec77f896a1971a7af'
 
 # =============================================================================
 # GIT CREDENTIALS
